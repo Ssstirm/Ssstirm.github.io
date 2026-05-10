@@ -1,0 +1,166 @@
+---
+import { getCollection } from 'astro:content';
+import { type Locale, t } from '../i18n';
+import ProjectCard from './ProjectCard.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const tr = t(locale);
+
+const all = await getCollection('projects', ({ data }) => data.locale === locale);
+const sorted = all.sort((a, b) => a.data.order - b.data.order);
+
+const byCategory = (cat: 'agent' | 'xr' | 'world') =>
+  sorted.filter((p) => p.data.category === cat);
+
+const categories = [
+  { key: 'agent' as const, ...tr.sections.agent },
+  { key: 'xr' as const, ...tr.sections.xr },
+  { key: 'world' as const, ...tr.sections.world },
+];
+---
+
+<!-- Hero -->
+<section class="container-page pt-16 pb-12 md:pt-24 md:pb-16">
+  <div class="md:flex md:gap-10 md:items-start">
+    <div class="md:flex-1 min-w-0">
+      <p class="text-xs uppercase tracking-[0.2em] text-ink-muted mb-3">
+        {tr.hero.role}
+      </p>
+      <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">
+        {tr.hero.name}
+      </h1>
+
+      <p class="text-[16px] leading-relaxed text-ink/85 max-w-prose">
+        {tr.hero.intro.split(/(\{(?:kul|ustc|thu)\})/g).map((part) => {
+          const match = part.match(/^\{(kul|ustc|thu)\}$/);
+          if (match) {
+            return (
+              <img
+                src={`/logos/${match[1]}.svg`}
+                alt=""
+                width="20"
+                height="20"
+                class="inline-block h-[1em] w-[1em] align-[-0.15em] mx-[2px] rounded-[3px]"
+              />
+            );
+          }
+          return part;
+        })}
+        {' '}{tr.hero.research_intro}{' '}
+        {tr.hero.experiences.map((exp, i, arr) => (
+          <>
+            {i > 0 && (i === arr.length - 1
+              ? tr.hero.experience_final_separator
+              : tr.hero.experience_separator)}
+            {exp.label}<Icon name={exp.icon} />
+          </>
+        ))}
+        {tr.hero.experience_outro}
+        {' '}{tr.hero.personal}{' '}{tr.hero.mission}
+      </p>
+    </div>
+
+    <div class="order-first md:order-last mb-8 md:mb-0 md:flex-shrink-0">
+      <img
+        src={tr.hero.photo}
+        alt={tr.hero.name}
+        width="160"
+        height="200"
+        class="w-32 md:w-40 aspect-[4/5] object-cover rounded-md border border-ink/10"
+      />
+    </div>
+  </div>
+</section>
+
+<!-- Project sections by category -->
+{categories.map((cat) => (
+  <section class="container-page py-10" id={cat.key}>
+    <div class="mb-2 flex items-baseline justify-between">
+      <h2 class="text-2xl font-semibold tracking-tight">{cat.title}</h2>
+    </div>
+    <p class="text-sm text-ink-soft mb-2">{cat.kicker}</p>
+    <div>
+      {byCategory(cat.key).map((p) => (
+        <ProjectCard
+          locale={locale}
+          slug={p.data.key}
+          title={p.data.title}
+          subtitle={p.data.subtitle}
+          period={p.data.period}
+          org={p.data.org}
+          role={p.data.role}
+          summary={p.data.summary}
+          stack={p.data.stack}
+          viewLabel={tr.ui.view_project}
+        />
+      ))}
+    </div>
+  </section>
+))}
+
+<!-- Experience -->
+<section class="container-page py-10" id="experience">
+  <h2 class="text-2xl font-semibold tracking-tight mb-6">{tr.sections.experience}</h2>
+  <ul class="space-y-5">
+    {tr.experience.map((e) => (
+      <li>
+        <div class="flex items-baseline justify-between gap-6 mb-1">
+          <p class="font-semibold text-ink">{e.role}</p>
+          <span class="text-xs text-ink-muted whitespace-nowrap font-mono">{e.period}</span>
+        </div>
+        <p class="text-sm text-ink-soft">{e.org}</p>
+        <p class="text-[15px] leading-relaxed text-ink/80 mt-1">{e.blurb}</p>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<!-- Education -->
+<section class="container-page py-10" id="education">
+  <h2 class="text-2xl font-semibold tracking-tight mb-6">{tr.sections.education}</h2>
+  <ul class="space-y-5">
+    {tr.education.map((e) => (
+      <li>
+        <div class="flex items-baseline justify-between gap-6 mb-1">
+          <p class="font-semibold text-ink">{e.degree}</p>
+          <span class="text-xs text-ink-muted whitespace-nowrap font-mono">{e.period}</span>
+        </div>
+        <p class="text-sm text-ink-soft">{e.school}</p>
+        {e.note && <p class="text-[15px] leading-relaxed text-ink/80 mt-1">{e.note}</p>}
+      </li>
+    ))}
+  </ul>
+</section>
+
+<!-- Publications -->
+<section class="container-page py-10" id="publications">
+  <h2 class="text-2xl font-semibold tracking-tight mb-6">{tr.sections.publications}</h2>
+  <ul class="space-y-4">
+    {tr.publications.map((p) => (
+      <li>
+        <p class="font-medium text-ink leading-snug">{p.title}</p>
+        <p class="text-sm text-ink-soft mt-1">{p.authors}</p>
+        <p class="text-xs text-ink-muted mt-0.5 font-mono">
+          {p.venue} · {p.year} · {p.role}
+        </p>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<!-- Contact -->
+<section class="container-page py-10 pb-16" id="contact">
+  <h2 class="text-2xl font-semibold tracking-tight mb-4">{tr.sections.contact}</h2>
+  <p class="text-[16px] leading-relaxed text-ink/85 mb-5 max-w-prose">{tr.contact.intro}</p>
+  <ul class="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+    <li><a href="mailto:xiannian0311@gmail.com">{tr.contact.email}</a></li>
+    <li><a href="tel:+8618843980900">{tr.contact.phone}</a></li>
+    <li><a href="https://github.com/Ssstirm" target="_blank" rel="noopener">{tr.contact.github}</a></li>
+    <li><a href={`/cv-${locale}.pdf`}>{tr.contact.cv}</a></li>
+  </ul>
+</section>

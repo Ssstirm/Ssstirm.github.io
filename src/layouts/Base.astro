@@ -1,0 +1,63 @@
+---
+import '../styles/global.css';
+import { type Locale, t, altLocale, localePath } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  title?: string;
+  description?: string;
+  pathOnOtherLocale?: string;
+}
+
+const { locale, title, description, pathOnOtherLocale } = Astro.props;
+const tr = t(locale);
+const other = altLocale(locale);
+
+const otherHref = localePath(other, pathOnOtherLocale ?? '/');
+---
+
+<!doctype html>
+<html lang={locale === 'zh' ? 'zh-CN' : 'en'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title ?? tr.meta.title}</title>
+    <meta name="description" content={description ?? tr.meta.description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="container-page pt-8 pb-2 flex items-center justify-between">
+      <a
+        href={localePath(locale, '/')}
+        class="font-semibold text-ink no-underline hover:no-underline tracking-tight"
+      >
+        {tr.hero.name}
+      </a>
+      <a
+        href={otherHref}
+        class="text-sm text-ink-soft no-underline hover:text-ink hover:no-underline"
+      >
+        {tr.ui.switch_lang}
+      </a>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="container-page py-12 text-xs text-ink-muted">
+      © {new Date().getFullYear()} {tr.hero.name}
+    </footer>
+  </body>
+</html>

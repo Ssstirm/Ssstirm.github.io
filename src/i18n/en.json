@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "title": "Taiyu Zhang",
+    "description": "Research engineer working on agents, XR interaction, and generative world models."
+  },
+  "nav": {
+    "agent": "Agent",
+    "xr": "XR / Gaming",
+    "world": "World Models",
+    "experience": "Experience",
+    "publications": "Publications",
+    "contact": "Contact",
+    "cv": "CV"
+  },
+  "hero": {
+    "name": "Taiyu Zhang",
+    "role": "Research Engineer",
+    "photo": "/photo.png",
+    "intro": "I'm a PhD candidate at the {kul} KU Leuven Computer Science department, where I work on intelligent virtual agents in 3D environments. Before Leuven, I did my undergrad at {ustc} USTC's School of Information and my master's at {thu} Tsinghua University in the Department of Electronic Engineering.",
+    "research_intro": "My research interests lie in AI Agents, XR interaction, and generative models. I have experience with",
+    "experiences": [
+      { "icon": "flask", "label": "AI Agents for science" },
+      { "icon": "search", "label": "automated research" },
+      { "icon": "gamepad", "label": "game NPCs" },
+      { "icon": "vr", "label": "coembodiment AI" },
+      { "icon": "languages", "label": "multilingual understanding" },
+      { "icon": "brain", "label": "large language models" },
+      { "icon": "person", "label": "3D animation" },
+      { "icon": "video", "label": "generative world models" }
+    ],
+    "experience_separator": ", ",
+    "experience_final_separator": ", and ",
+    "experience_outro": ".",
+    "personal": "In my spare time, I like playing video games and finding good restaurants.",
+    "mission": "My research ambition is to use technology to bring the worlds we've only seen in sci-fi films into reality."
+  },
+  "sections": {
+    "agent": {
+      "title": "AI Agent",
+      "kicker": "LLM-driven agents, multi-agent systems, and autonomous research."
+    },
+    "xr": {
+      "title": "XR / Gaming",
+      "kicker": "Embodied interaction and intelligent virtual agents in 3D environments."
+    },
+    "world": {
+      "title": "Generative Models",
+      "kicker": "Distillation and post-training of generative models."
+    },
+    "experience": "Experience",
+    "education": "Education",
+    "publications": "Publications",
+    "contact": "Get in touch"
+  },
+  "experience": [
+    {
+      "role": "Research Intern, World Model Distillation",
+      "org": "Moxin Technology",
+      "period": "2026.03 – 2026.05",
+      "blurb": "Distilled a 14B video generation model on Ascend 920C servers; added camera-control conditioning and long-video distillation."
+    },
+    {
+      "role": "NLP Researcher",
+      "org": "iFlyTek",
+      "period": "2021 – 2022",
+      "blurb": "Multilingual language understanding research and national key projects."
+    }
+  ],
+  "education": [
+    {
+      "degree": "Ph.D., Computer Science",
+      "school": "KU Leuven",
+      "period": "2022 – Present",
+      "note": "Intelligent virtual agents in 3D environments. Advisor: Prof. Adalberto L. Simeone."
+    },
+    {
+      "degree": "M.S., Electronic Engineering",
+      "school": "Tsinghua University",
+      "period": "2018 – 2021",
+      "note": "Machine learning for laser-induced breakdown spectroscopy. Advisor: Prof. Xiaohong Ma."
+    },
+    {
+      "degree": "B.S., Electronic Engineering & Information Science",
+      "school": "University of Science and Technology of China",
+      "period": "2014 – 2018",
+      "note": "SRCNN-based image super-resolution. Advisor: Prof. Jian Tang."
+    }
+  ],
+  "publications": [
+    {
+      "title": "Focus Agent: LLM-Powered Virtual Focus Group",
+      "authors": "Zhang, T., et al.",
+      "venue": "Proceedings of the 24th ACM International Conference on Intelligent Virtual Agents (IVA)",
+      "year": "2024",
+      "role": "First author"
+    }
+  ],
+  "contact": {
+    "intro": "Open to research-engineer and applied-AI roles. The fastest way to reach me is email.",
+    "email": "Email",
+    "phone": "Phone",
+    "github": "GitHub",
+    "cv": "Download CV (PDF)"
+  },
+  "ui": {
+    "view_project": "View project",
+    "back_home": "Back to home",
+    "switch_lang": "中文"
+  }
+}

@@ -1,0 +1,101 @@
+---
+interface Props {
+  name: string;
+  class?: string;
+}
+const { name, class: cls = '' } = Astro.props;
+
+const colorMap: Record<string, string> = {
+  flask: '#059669',
+  search: '#2563eb',
+  gamepad: '#7c3aed',
+  vr: '#0891b2',
+  languages: '#d97706',
+  brain: '#db2777',
+  person: '#4f46e5',
+  video: '#dc2626',
+  film: '#78716c',
+  mountain: '#78716c',
+};
+const iconColor = colorMap[name] ?? '#52525b';
+const baseClass = `inline-block align-[-0.18em] ml-[3px] mr-[1px] ${cls}`;
+---
+
+{name === 'flask' && (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={iconColor} stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class={baseClass}>
+    <path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"/>
+    <path d="M8.5 2h7"/>
+    <path d="M7 16h10"/>
+  </svg>
+)}
+{name === 'search' && (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={iconColor} stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class={baseClass}>
+    <circle cx="11" cy="11" r="8"/>
+    <path d="m21 21-4.3-4.3"/>
+  </svg>
+)}
+{name === 'gamepad' && (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={iconColor} stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class={baseClass}>
+    <line x1="6" x2="10" y1="11" y2="11"/>
+    <line x1="8" x2="8" y1="9" y2="13"/>
+    <line x1="15" x2="15.01" y1="12" y2="12"/>
+    <line x1="18" x2="18.01" y1="10" y2="10"/>
+    <path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/>
+  </svg>
+)}
+{name === 'vr' && (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={iconColor} stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class={baseClass}>
+    <circle cx="6" cy="15" r="4"/>
+    <circle cx="18" cy="15" r="4"/>
+    <path d="M14 15a2 2 0 0 0-4 0"/>
+    <path d="M2.5 13l1-9 3.5-1"/>
+    <path d="M21.5 13l-1-9-3.5-1"/>
+  </svg>
+)}
+{name === 'languages' && (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={iconColor} stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class={baseClass}>
+    <path d="m5 8 6 6"/>
+    <path d="m4 14 6-6 2-3"/>
+    <path d="M2 5h12"/>
+    <path d="M7 2h1"/>
+    <path d="m22 22-5-10-5 10"/>
+    <path d="M14 18h6"/>
+  </svg>
+)}
+{name === 'brain' && (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={iconColor} stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class={baseClass}>
+    <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/>
+    <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/>
+  </svg>
+)}
+{name === 'film' && (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={iconColor} stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class={baseClass}>
+    <rect width="18" height="18" x="3" y="3" rx="2"/>
+    <path d="M7 3v18"/>
+    <path d="M3 7.5h4"/>
+    <path d="M3 12h18"/>
+    <path d="M3 16.5h4"/>
+    <path d="M17 3v18"/>
+    <path d="M17 7.5h4"/>
+    <path d="M17 16.5h4"/>
+  </svg>
+)}
+{name === 'video' && (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={iconColor} stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class={baseClass}>
+    <path d="m22 8-6 4 6 4V8Z"/>
+    <rect width="14" height="12" x="2" y="6" rx="2" ry="2"/>
+  </svg>
+)}
+{name === 'person' && (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={iconColor} stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class={baseClass}>
+    <circle cx="12" cy="5" r="1"/>
+    <path d="m9 20 3-6 3 6"/>
+    <path d="m6 8 6 2 6-2"/>
+    <path d="M12 10v4"/>
+  </svg>
+)}
+{name === 'mountain' && (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={iconColor} stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class={baseClass}>
+    <path d="m8 3 4 8 5-5 5 15H2L8 3z"/>
+  </svg>
+)}

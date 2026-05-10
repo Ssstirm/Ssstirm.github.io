@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "title": "张泰宇",
+    "description": "研究型工程师，方向涵盖智能体、XR 交互与生成式世界模型。"
+  },
+  "nav": {
+    "agent": "智能体",
+    "xr": "XR / 游戏",
+    "world": "世界模型",
+    "experience": "经历",
+    "publications": "发表",
+    "contact": "联系",
+    "cv": "简历"
+  },
+  "hero": {
+    "name": "张泰宇",
+    "role": "研究型工程师",
+    "photo": "/photo.png",
+    "intro": "我是 {kul} KU Leuven 计算机科学系的在读博士，研究方向是三维环境中的智能虚拟代理。来鲁汶之前，本科毕业于 {ustc} 中国科学技术大学信息学院，硕士毕业于 {thu} 清华大学电子工程系。",
+    "research_intro": "研究兴趣集中在 AI Agent、XR 交互和生成式模型三个方向。过往工作涉及",
+    "experiences": [
+      { "icon": "flask", "label": "AI Agent for Science" },
+      { "icon": "search", "label": "auto research" },
+      { "icon": "gamepad", "label": "游戏 NPC" },
+      { "icon": "vr", "label": "coembodiment AI" },
+      { "icon": "languages", "label": "多语种语义理解" },
+      { "icon": "brain", "label": "大语言模型" },
+      { "icon": "person", "label": "3D 动画" },
+      { "icon": "video", "label": "生成式世界模型" }
+    ],
+    "experience_separator": "、",
+    "experience_final_separator": "、",
+    "experience_outro": " 等领域。",
+    "personal": "平时喜欢打游戏和寻觅美食。",
+    "mission": "我的研究理想是利用技术将科幻电影中的场景变为现实。"
+  },
+  "sections": {
+    "agent": {
+      "title": "AI Agent",
+      "kicker": "LLM 驱动的智能体、多智能体系统与自主研究。"
+    },
+    "xr": {
+      "title": "XR / 游戏",
+      "kicker": "三维环境中的具身交互与智能虚拟代理。"
+    },
+    "world": {
+      "title": "生成式模型",
+      "kicker": "生成式模型的蒸馏与后训练。"
+    },
+    "experience": "经历",
+    "education": "教育",
+    "publications": "发表",
+    "contact": "联系"
+  },
+  "experience": [
+    {
+      "role": "研究实习生，世界模型蒸馏方向",
+      "org": "魔芯科技",
+      "period": "2026.03 – 2026.05",
+      "blurb": "在昇腾 920C 服务器上完成 14B 视频生成模型蒸馏；引入相机控制条件与长视频蒸馏。"
+    },
+    {
+      "role": "NLP 研究员",
+      "org": "科大讯飞",
+      "period": "2021 – 2022",
+      "blurb": "多语种语言理解研究，参与国家重点项目。"
+    }
+  ],
+  "education": [
+    {
+      "degree": "博士，计算机科学",
+      "school": "鲁汶大学（KU Leuven）",
+      "period": "2022 – 至今",
+      "note": "三维环境中的智能虚拟代理。导师：Adalberto L. Simeone 教授。"
+    },
+    {
+      "degree": "硕士，电子工程",
+      "school": "清华大学",
+      "period": "2018 – 2021",
+      "note": "激光诱导击穿光谱的机器学习定量分析。导师：马晓红教授。"
+    },
+    {
+      "degree": "学士，电子工程与信息科学",
+      "school": "中国科学技术大学",
+      "period": "2014 – 2018",
+      "note": "基于 SRCNN 的图像超分辨率重建。导师：唐建教授。"
+    }
+  ],
+  "publications": [
+    {
+      "title": "Focus Agent：基于大语言模型的虚拟焦点小组",
+      "authors": "张泰宇 等",
+      "venue": "第 24 届 ACM 智能虚拟代理国际会议（IVA）",
+      "year": "2024",
+      "role": "第一作者"
+    }
+  ],
+  "contact": {
+    "intro": "目前在寻找研究型工程师 / 应用 AI 岗位的机会，邮件最快。",
+    "email": "邮箱",
+    "phone": "电话",
+    "github": "GitHub",
+    "cv": "下载简历（PDF）"
+  },
+  "ui": {
+    "view_project": "查看详情",
+    "back_home": "返回首页",
+    "switch_lang": "EN"
+  }
+}

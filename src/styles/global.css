@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-paper text-ink font-sans;
+  }
+
+  h1, h2, h3, h4 {
+    @apply text-ink tracking-tight;
+  }
+
+  a {
+    @apply text-accent underline-offset-4 hover:underline;
+  }
+}
+
+@layer components {
+  .container-prose {
+    @apply mx-auto max-w-prose px-6;
+  }
+
+  .container-page {
+    @apply mx-auto max-w-3xl px-6;
+  }
+
+  .section {
+    @apply py-16 md:py-24;
+  }
+
+  .section-title {
+    @apply text-xs uppercase tracking-[0.2em] text-ink-soft mb-8;
+  }
+}
