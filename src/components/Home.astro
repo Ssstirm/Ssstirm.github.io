@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { type Locale, t } from '../i18n';
-import ProjectCard from './ProjectCard.astro';
+import { type Locale, t, localePath } from '../i18n';
 import Icon from './Icon.astro';
 
 interface Props {
@@ -22,145 +21,168 @@ const categories = [
   { key: 'xr' as const, ...tr.sections.xr },
   { key: 'world' as const, ...tr.sections.world },
 ];
+
+const isLeadAuthor = (role?: string) => {
+  if (!role) return false;
+  return /first author|第一作者/i.test(role);
+};
 ---
 
-<!-- Hero -->
-<section class="container-page pt-16 pb-12 md:pt-24 md:pb-16">
-  <div class="md:flex md:gap-10 md:items-start">
-    <div class="md:flex-1 min-w-0">
-      <p class="text-xs uppercase tracking-[0.2em] text-ink-muted mb-3">
-        {tr.hero.role}
-      </p>
-      <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">
+<div class="max-w-[1180px] mx-auto px-6 md:px-10 py-8 md:py-10">
+
+  <!-- Top: Photo + Name + Contact -->
+  <header class="flex items-center gap-6 mb-8">
+    <img
+      src={tr.hero.photo}
+      alt={tr.hero.name}
+      width="96"
+      height="120"
+      class="w-24 h-30 md:w-28 md:h-36 rounded-lg object-cover border border-ink/10 flex-shrink-0"
+    />
+    <div class="flex-1 min-w-0">
+      <h1 class="text-4xl md:text-[44px] font-bold tracking-tight leading-[1.05]">
         {tr.hero.name}
       </h1>
-
-      <p class="text-[16px] leading-relaxed text-ink/85 max-w-prose">
-        {tr.hero.intro.split(/(\{(?:kul|ustc|thu)\})/g).map((part) => {
-          const match = part.match(/^\{(kul|ustc|thu)\}$/);
-          if (match) {
-            return (
-              <img
-                src={`/logos/${match[1]}.svg`}
-                alt=""
-                width="20"
-                height="20"
-                class="inline-block h-[1em] w-[1em] align-[-0.15em] mx-[2px] rounded-[3px]"
-              />
-            );
-          }
-          return part;
-        })}
-        {' '}{tr.hero.research_intro}{' '}
-        {tr.hero.experiences.map((exp, i, arr) => (
-          <>
-            {i > 0 && (i === arr.length - 1
-              ? tr.hero.experience_final_separator
-              : tr.hero.experience_separator)}
-            {exp.label}<Icon name={exp.icon} />
-          </>
-        ))}
-        {tr.hero.experience_outro}
-        {' '}{tr.hero.personal}{' '}{tr.hero.mission}
+      <p class="text-xs uppercase tracking-[0.2em] text-accent mt-2 font-semibold">
+        {tr.hero.role}
       </p>
+      <ul class="flex flex-wrap gap-x-4 gap-y-1 text-[13px] text-ink-soft mt-3">
+        <li><a href="mailto:xiannian0311@gmail.com" class="hover:text-accent">xiannian0311@gmail.com</a></li>
+        <li><a href="tel:+8618843980900" class="hover:text-accent">+86 188 4398 0900</a></li>
+        <li><a href="https://github.com/Ssstirm" target="_blank" rel="noopener" class="hover:text-accent">github.com/Ssstirm</a></li>
+        <li><a href={`/cv-${locale}.pdf`} class="text-accent font-semibold">{tr.contact.cv}</a></li>
+      </ul>
     </div>
+  </header>
 
-    <div class="order-first md:order-last mb-8 md:mb-0 md:flex-shrink-0">
-      <img
-        src={tr.hero.photo}
-        alt={tr.hero.name}
-        width="160"
-        height="200"
-        class="w-32 md:w-40 aspect-[4/5] object-cover rounded-md border border-ink/10"
-      />
-    </div>
-  </div>
-</section>
+  <!-- Bio paragraph (full width, prominent) -->
+  <section class="mb-8 text-[15.5px] leading-relaxed text-ink/85">
+    {tr.hero.intro.split(/(\{(?:kul|ustc|thu)\})/g).map((part) => {
+      const match = part.match(/^\{(kul|ustc|thu)\}$/);
+      if (match) {
+        return (
+          <img
+            src={`/logos/${match[1]}.svg`}
+            alt=""
+            width="20"
+            height="20"
+            class="inline-block h-[1em] w-[1em] align-[-0.15em] mx-[2px] rounded-[3px]"
+          />
+        );
+      }
+      return part;
+    })}
+    {' '}{tr.hero.research_intro}{' '}
+    {tr.hero.experiences.map((exp, i, arr) => (
+      <>
+        {i > 0 && (i === arr.length - 1
+          ? tr.hero.experience_final_separator
+          : tr.hero.experience_separator)}
+        {exp.label}<Icon name={exp.icon} />
+      </>
+    ))}
+    {tr.hero.experience_outro}
+    {' '}{tr.hero.personal}{' '}{tr.hero.mission}
+  </section>
 
-<!-- Project sections by category -->
-{categories.map((cat) => (
-  <section class="container-page py-10" id={cat.key}>
-    <div class="mb-2 flex items-baseline justify-between">
-      <h2 class="text-2xl font-semibold tracking-tight">{cat.title}</h2>
-    </div>
-    <p class="text-sm text-ink-soft mb-2">{cat.kicker}</p>
-    <div>
-      {byCategory(cat.key).map((p) => (
-        <ProjectCard
-          locale={locale}
-          slug={p.data.key}
-          title={p.data.title}
-          subtitle={p.data.subtitle}
-          period={p.data.period}
-          org={p.data.org}
-          role={p.data.role}
-          summary={p.data.summary}
-          stack={p.data.stack}
-          viewLabel={tr.ui.view_project}
-        />
+  <!-- Projects: 3 columns by category -->
+  <section class="mb-10">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+      {categories.map((cat) => (
+        <div>
+          <h2 class="text-sm uppercase tracking-[0.18em] text-accent font-bold mb-4 pb-2 border-b border-accent/30">
+            {cat.title}
+          </h2>
+          <ul class="space-y-4">
+            {byCategory(cat.key).map((p) => (
+              <li>
+                <a
+                  href={localePath(locale, `/projects/${p.data.key}`)}
+                  class="block group no-underline hover:no-underline"
+                >
+                  <div class="flex items-baseline justify-between gap-2 mb-0.5">
+                    <p class="text-[15px] font-bold text-ink group-hover:text-accent transition-colors leading-snug">
+                      {p.data.title}
+                    </p>
+                    {p.data.period && (
+                      <span class="text-[10.5px] text-ink-muted font-mono whitespace-nowrap flex-shrink-0">
+                        {p.data.period}
+                      </span>
+                    )}
+                  </div>
+                  {p.data.subtitle && (
+                    <p class="text-[12.5px] text-ink-soft leading-snug mb-1">
+                      {p.data.subtitle}
+                    </p>
+                  )}
+                  {p.data.role && (
+                    <p class={`text-[11px] font-semibold ${isLeadAuthor(p.data.role) ? 'text-accent' : 'text-ink-muted'}`}>
+                      {p.data.role}
+                    </p>
+                  )}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       ))}
     </div>
   </section>
-))}
 
-<!-- Experience -->
-<section class="container-page py-10" id="experience">
-  <h2 class="text-2xl font-semibold tracking-tight mb-6">{tr.sections.experience}</h2>
-  <ul class="space-y-5">
-    {tr.experience.map((e) => (
-      <li>
-        <div class="flex items-baseline justify-between gap-6 mb-1">
-          <p class="font-semibold text-ink">{e.role}</p>
-          <span class="text-xs text-ink-muted whitespace-nowrap font-mono">{e.period}</span>
-        </div>
-        <p class="text-sm text-ink-soft">{e.org}</p>
-        <p class="text-[15px] leading-relaxed text-ink/80 mt-1">{e.blurb}</p>
-      </li>
-    ))}
-  </ul>
-</section>
+  <!-- Bottom strip: Experience | Education | Publications -->
+  <section class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 pt-6 border-t border-ink/10 text-[13px]">
 
-<!-- Education -->
-<section class="container-page py-10" id="education">
-  <h2 class="text-2xl font-semibold tracking-tight mb-6">{tr.sections.education}</h2>
-  <ul class="space-y-5">
-    {tr.education.map((e) => (
-      <li>
-        <div class="flex items-baseline justify-between gap-6 mb-1">
-          <p class="font-semibold text-ink">{e.degree}</p>
-          <span class="text-xs text-ink-muted whitespace-nowrap font-mono">{e.period}</span>
-        </div>
-        <p class="text-sm text-ink-soft">{e.school}</p>
-        {e.note && <p class="text-[15px] leading-relaxed text-ink/80 mt-1">{e.note}</p>}
-      </li>
-    ))}
-  </ul>
-</section>
+    <!-- Experience -->
+    <div>
+      <h3 class="text-xs uppercase tracking-[0.18em] text-accent font-bold mb-3">
+        {tr.sections.experience}
+      </h3>
+      <ul class="space-y-3 leading-snug">
+        {tr.experience.map((e) => (
+          <li>
+            <div class="flex items-baseline justify-between gap-2 mb-0.5">
+              <p class="font-semibold text-ink text-[13.5px]">{e.role}</p>
+              <span class="text-[10.5px] text-ink-muted font-mono whitespace-nowrap flex-shrink-0">{e.period}</span>
+            </div>
+            <p class="text-ink-soft text-[12.5px]">{e.org}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
 
-<!-- Publications -->
-<section class="container-page py-10" id="publications">
-  <h2 class="text-2xl font-semibold tracking-tight mb-6">{tr.sections.publications}</h2>
-  <ul class="space-y-4">
-    {tr.publications.map((p) => (
-      <li>
-        <p class="font-medium text-ink leading-snug">{p.title}</p>
-        <p class="text-sm text-ink-soft mt-1">{p.authors}</p>
-        <p class="text-xs text-ink-muted mt-0.5 font-mono">
-          {p.venue} · {p.year} · {p.role}
-        </p>
-      </li>
-    ))}
-  </ul>
-</section>
+    <!-- Education -->
+    <div>
+      <h3 class="text-xs uppercase tracking-[0.18em] text-accent font-bold mb-3">
+        {tr.sections.education}
+      </h3>
+      <ul class="space-y-3 leading-snug">
+        {tr.education.map((e) => (
+          <li>
+            <div class="flex items-baseline justify-between gap-2 mb-0.5">
+              <p class="font-semibold text-ink text-[13.5px]">{e.degree}</p>
+              <span class="text-[10.5px] text-ink-muted font-mono whitespace-nowrap flex-shrink-0">{e.period}</span>
+            </div>
+            <p class="text-ink-soft text-[12.5px]">{e.school}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
 
-<!-- Contact -->
-<section class="container-page py-10 pb-16" id="contact">
-  <h2 class="text-2xl font-semibold tracking-tight mb-4">{tr.sections.contact}</h2>
-  <p class="text-[16px] leading-relaxed text-ink/85 mb-5 max-w-prose">{tr.contact.intro}</p>
-  <ul class="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-    <li><a href="mailto:xiannian0311@gmail.com">{tr.contact.email}</a></li>
-    <li><a href="tel:+8618843980900">{tr.contact.phone}</a></li>
-    <li><a href="https://github.com/Ssstirm" target="_blank" rel="noopener">{tr.contact.github}</a></li>
-    <li><a href={`/cv-${locale}.pdf`}>{tr.contact.cv}</a></li>
-  </ul>
-</section>
+    <!-- Publications -->
+    <div>
+      <h3 class="text-xs uppercase tracking-[0.18em] text-accent font-bold mb-3">
+        {tr.sections.publications}
+      </h3>
+      <ul class="space-y-3 leading-snug">
+        {tr.publications.map((p) => (
+          <li>
+            <p class="font-semibold text-ink text-[13.5px]">{p.title}</p>
+            <p class="text-ink-soft text-[12.5px] mt-0.5">{p.authors}</p>
+            <p class="text-ink-muted font-mono text-[10.5px] mt-0.5">{p.venue} · {p.year}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+</div>

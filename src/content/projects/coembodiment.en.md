@@ -5,7 +5,7 @@ category: xr
 order: 2
 title: Coembodiment AI
 subtitle: When a human and an AI share one virtual body
-period: 2024 – 2025
+period: 2025 – 2026
 role: First author
 stack: [Unity, C#, VR, Mixed-control algorithms, User study]
 links: []

@@ -14,7 +14,7 @@
   },
   "hero": {
     "name": "Taiyu Zhang",
-    "role": "Research Engineer",
+    "role": "Researcher",
     "photo": "/photo.png",
     "intro": "I'm a PhD candidate at the {kul} KU Leuven Computer Science department, where I work on intelligent virtual agents in 3D environments. Before Leuven, I did my undergrad at {ustc} USTC's School of Information and my master's at {thu} Tsinghua University in the Department of Electronic Engineering.",
     "research_intro": "My research interests lie in AI Agents, XR interaction, and generative models. I have experience with",
