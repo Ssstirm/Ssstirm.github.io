@@ -2,9 +2,9 @@
 key: 3d-motion-generation
 locale: zh
 category: world
-order: 2
+order: 3
 title: 3D 角色动画生成
-subtitle: 长期追踪文本到动作生成的自回归与扩散两条分支，直至大模型时代
+subtitle: 文本到动作：自回归与扩散两条路线
 period: 2023 – 2025
 role: 研究员
 stack: [PyTorch, VQGAN, T2M-GPT, Momask, MotionGPT, MDM, HumanML3D]

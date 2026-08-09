@@ -4,13 +4,17 @@ locale: zh
 category: agent
 order: 1
 title: Focus Agent
-subtitle: 基于大语言模型的虚拟焦点小组
+subtitle: 大模型驱动的虚拟焦点小组
 period: 2023 – 2024
 role: 第一作者
 stack: [LLM, 多智能体仿真, Unity, 用户研究]
 links:
   - label: 论文（IVA 2024）
-    href: https://dl.acm.org/doi/10.1145/3652988.3673929
+    href: https://dl.acm.org/doi/10.1145/3652988.3673918
+  - label: arXiv
+    href: https://arxiv.org/abs/2409.01907
+  - label: 代码
+    href: https://github.com/AriaXR/FocusAgent
 summary: 一个完全由 LLM 驱动的虚拟焦点小组系统：每位参与者都是带有独立人格的智能体；论文发表于 IVA 2024，第一作者。
 ---
 

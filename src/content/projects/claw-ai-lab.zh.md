@@ -4,7 +4,7 @@ locale: zh
 category: agent
 order: 2
 title: Claw-AI-Lab
-subtitle: 端到端研究的自主多智能体平台
+subtitle: 端到端研究的多智能体平台
 period: 2025 – 至今
 role: 联合开发者
 stack: [Python, TypeScript, PyTorch, 多智能体编排]

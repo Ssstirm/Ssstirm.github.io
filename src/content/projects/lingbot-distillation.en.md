@@ -2,14 +2,14 @@
 key: lingbot-distillation
 locale: en
 category: world
-order: 3
+order: 2
 title: LingBot Distillation
-subtitle: Reproducing LingBot's video-model distillation on Huawei Ascend servers
+subtitle: 14B video diffusion → 4-step student
 period: 2026.03 – 2026.05
 role: Research Intern
 org: Moxin Technology
 stack: [PyTorch, Ascend 920C / CANN, Video diffusion, Knowledge distillation]
-links: []
+links: [{ label: "arXiv", href: "https://arxiv.org/abs/2607.06216" }]
 summary: Reproduced LingBot's distillation pipeline on Huawei Ascend servers, distilling a teacher video-generation model that handles ~1000-frame long videos with camera-trajectory control.
 ---
 

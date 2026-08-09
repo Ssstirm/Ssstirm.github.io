@@ -14,19 +14,44 @@
   },
   "hero": {
     "name": "Taiyu Zhang",
-    "role": "Researcher",
+    "role": "PhD Candidate · KU Leuven",
+    "now": "Currently a research intern with the multimodal interaction group at ByteDance PICO.",
     "photo": "/photo.png",
     "intro": "I'm a PhD candidate at the {kul} KU Leuven Computer Science department, where I work on intelligent virtual agents in 3D environments. Before Leuven, I did my undergrad at {ustc} USTC's School of Information and my master's at {thu} Tsinghua University in the Department of Electronic Engineering.",
     "research_intro": "My research interests lie in AI Agents, XR interaction, and generative models. I have experience with",
     "experiences": [
-      { "icon": "flask", "label": "AI Agents for science" },
-      { "icon": "search", "label": "automated research" },
-      { "icon": "gamepad", "label": "game NPCs" },
-      { "icon": "vr", "label": "coembodiment AI" },
-      { "icon": "languages", "label": "multilingual understanding" },
-      { "icon": "brain", "label": "large language models" },
-      { "icon": "person", "label": "3D animation" },
-      { "icon": "video", "label": "generative world models" }
+      {
+        "icon": "flask",
+        "label": "AI Agents for science"
+      },
+      {
+        "icon": "search",
+        "label": "automated research"
+      },
+      {
+        "icon": "gamepad",
+        "label": "game NPCs"
+      },
+      {
+        "icon": "vr",
+        "label": "coembodiment AI"
+      },
+      {
+        "icon": "languages",
+        "label": "multilingual understanding"
+      },
+      {
+        "icon": "brain",
+        "label": "large language models"
+      },
+      {
+        "icon": "person",
+        "label": "3D animation"
+      },
+      {
+        "icon": "video",
+        "label": "generative world models"
+      }
     ],
     "experience_separator": ", ",
     "experience_final_separator": ", and ",
@@ -45,7 +70,7 @@
     },
     "world": {
       "title": "Generative Models",
-      "kicker": "Distillation and post-training of generative models."
+      "kicker": "Distillation, post-training, and data engines for generative models."
     },
     "experience": "Experience",
     "education": "Education",
@@ -53,6 +78,12 @@
     "contact": "Get in touch"
   },
   "experience": [
+    {
+      "role": "Research Intern, Multimodal Interaction",
+      "org": "ByteDance PICO",
+      "period": "2026.07 – Present",
+      "blurb": "Built a data pipeline for hand-gesture tracking: diffusion-based generation of gesture video data, plus Qwen multimodal VLM annotation and review."
+    },
     {
       "role": "Research Intern, World Model Distillation",
       "org": "Moxin Technology",
@@ -88,11 +119,28 @@
   ],
   "publications": [
     {
+      "title": "“What Can I Do for You”: How Should AI Companions Provide Assistance to Players in Virtual Reality Games",
+      "authors": "Zhang, T., et al.",
+      "venue": "ACM Symposium on Spatial User Interaction (SUI)",
+      "year": "2026",
+      "role": "First author",
+      "link": ""
+    },
+    {
+      "title": "MoWorld: A Flash World Model",
+      "authors": "Team Moxin, incl. Zhang, T.",
+      "venue": "Technical report, arXiv:2607.06216",
+      "year": "2026",
+      "role": "Contributor",
+      "link": "https://arxiv.org/abs/2607.06216"
+    },
+    {
       "title": "Focus Agent: LLM-Powered Virtual Focus Group",
       "authors": "Zhang, T., et al.",
       "venue": "Proceedings of the 24th ACM International Conference on Intelligent Virtual Agents (IVA)",
       "year": "2024",
-      "role": "First author"
+      "role": "First author",
+      "link": "https://arxiv.org/abs/2409.01907"
     }
   ],
   "contact": {
@@ -105,6 +153,12 @@
   "ui": {
     "view_project": "View project",
     "back_home": "Back to home",
-    "switch_lang": "中文"
+    "switch_lang": "中文",
+    "toggle_theme": "Toggle dark mode",
+    "meta_period": "Period",
+    "meta_role": "Role",
+    "meta_org": "Org",
+    "meta_stack": "Stack",
+    "meta_links": "Links"
   }
 }

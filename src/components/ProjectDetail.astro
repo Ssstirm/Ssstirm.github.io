@@ -1,0 +1,69 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { type Locale, t, localePath } from '../i18n';
+
+interface Props {
+  entry: CollectionEntry<'projects'>;
+  locale: Locale;
+}
+
+const { entry, locale } = Astro.props;
+const tr = t(locale);
+const { Content } = await entry.render();
+
+// Category label reuses the home-page section titles so the two never drift.
+const categoryLabel = tr.sections[entry.data.category].title;
+
+const meta = [
+  { label: tr.ui.meta_period, value: entry.data.period },
+  { label: tr.ui.meta_role, value: entry.data.role },
+  { label: tr.ui.meta_org, value: entry.data.org },
+  {
+    label: tr.ui.meta_stack,
+    value: entry.data.stack.length ? entry.data.stack.join(' · ') : undefined,
+  },
+].filter((m) => m.value);
+---
+
+<article class="container-prose py-12 md:py-16">
+  <a
+    href={localePath(locale, '/')}
+    class="text-xs text-ink-muted no-underline hover:text-ink hover:no-underline"
+  >
+    ← {tr.ui.back_home}
+  </a>
+
+  <header class="mt-6 mb-8">
+    <p class="eyebrow text-ink-muted mb-2">{categoryLabel}</p>
+    <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+      {entry.data.title}
+    </h1>
+    {entry.data.subtitle && <p class="text-lg text-ink-soft">{entry.data.subtitle}</p>}
+
+    <dl class="mt-6 grid grid-cols-[auto_1fr] gap-x-6 gap-y-1 text-sm">
+      {meta.map((m) => (
+        <>
+          <dt class="text-ink-muted font-mono text-xs">{m.label}</dt>
+          <dd class="text-ink/85">{m.value}</dd>
+        </>
+      ))}
+      {entry.data.links.length > 0 && (
+        <>
+          <dt class="text-ink-muted font-mono text-xs">{tr.ui.meta_links}</dt>
+          <dd class="text-ink/85">
+            {entry.data.links.map((l, i) => (
+              <>
+                {i > 0 && ' · '}
+                <a href={l.href} target="_blank" rel="noopener">{l.label}</a>
+              </>
+            ))}
+          </dd>
+        </>
+      )}
+    </dl>
+  </header>
+
+  <div class="prose prose-neutral dark:prose-invert max-w-none prose-headings:font-semibold prose-headings:tracking-tight prose-h2:text-xl prose-h2:mt-10 prose-h2:mb-3 prose-p:leading-relaxed prose-a:text-accent">
+    <Content />
+  </div>
+</article>

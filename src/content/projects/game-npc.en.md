@@ -4,9 +4,9 @@ locale: en
 category: xr
 order: 1
 title: AI Game NPC
-subtitle: How much help should an LLM-driven NPC actually give a player?
+subtitle: How much help is too much?
 period: 2024 – 2025
-role: First author
+role: First author · SUI 2026
 stack: [Apple Vision Pro, Unity 6]
 links: []
 summary: A VR puzzle game on Apple Vision Pro with an LLM-driven AI companion, used to study how much assistance players actually want from intelligent NPCs. 24-participant within-subjects study.

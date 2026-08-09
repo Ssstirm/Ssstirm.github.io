@@ -5,20 +5,9 @@ interface Props {
 }
 const { name, class: cls = '' } = Astro.props;
 
-const colorMap: Record<string, string> = {
-  flask: '#059669',
-  search: '#2563eb',
-  gamepad: '#7c3aed',
-  vr: '#0891b2',
-  languages: '#d97706',
-  brain: '#db2777',
-  person: '#4f46e5',
-  video: '#dc2626',
-  film: '#78716c',
-  mountain: '#78716c',
-};
-const iconColor = colorMap[name] ?? '#52525b';
-const baseClass = `inline-block align-[-0.18em] ml-[3px] mr-[1px] ${cls}`;
+// Single neutral tone: the bio reads as prose, not as a colour-coded legend.
+const iconColor = 'currentColor';
+const baseClass = `inline-block align-[-0.18em] ml-[3px] mr-[1px] text-ink-muted ${cls}`;
 ---
 
 {name === 'flask' && (

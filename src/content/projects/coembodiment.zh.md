@@ -4,7 +4,7 @@ locale: zh
 category: xr
 order: 2
 title: Coembodiment AI
-subtitle: 人和 AI 共同控制同一具虚拟身体时会发生什么
+subtitle: 人与 AI 共享一具虚拟身体
 period: 2025 – 2026
 role: 第一作者
 stack: [Unity, C#, VR, 混合控制算法, 用户研究]

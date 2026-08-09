@@ -1,11 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
-import Base from '../../layouts/Base.astro';
-import ProjectDetail from '../../components/ProjectDetail.astro';
-import { t } from '../../i18n';
+import Base from '../../../layouts/Base.astro';
+import ProjectDetail from '../../../components/ProjectDetail.astro';
+import { t } from '../../../i18n';
 
 export async function getStaticPaths() {
-  const all = await getCollection('projects', ({ data }) => data.locale === 'zh');
+  const all = await getCollection('projects', ({ data }) => data.locale === 'en');
   return all.map((p) => ({
     params: { slug: p.data.key },
     props: { entry: p },
@@ -13,14 +13,14 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const tr = t('zh');
+const tr = t('en');
 ---
 
 <Base
-  locale="zh"
+  locale="en"
   title={`${entry.data.title} — ${tr.hero.name}`}
   description={entry.data.summary}
   pathOnOtherLocale={`/projects/${entry.data.key}`}
 >
-  <ProjectDetail entry={entry} locale="zh" />
+  <ProjectDetail entry={entry} locale="en" />
 </Base>

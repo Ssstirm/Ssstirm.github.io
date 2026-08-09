@@ -14,6 +14,16 @@ const tr = t(locale);
 const other = altLocale(locale);
 
 const otherHref = localePath(other, pathOnOtherLocale ?? '/');
+
+// Locale-agnostic path, used to emit both language variants for hreflang.
+const basePath = pathOnOtherLocale ?? '/';
+const abs = (p: string) => new URL(p, Astro.site ?? Astro.url).href;
+const zhHref = abs(localePath('zh', basePath));
+const enHref = abs(localePath('en', basePath));
+const canonical = abs(localePath(locale, basePath));
+
+const pageTitle = title ?? tr.meta.title;
+const pageDescription = description ?? tr.meta.description;
 ---
 
 <!doctype html>
@@ -21,43 +31,104 @@ const otherHref = localePath(other, pathOnOtherLocale ?? '/');
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title ?? tr.meta.title}</title>
-    <meta name="description" content={description ?? tr.meta.description} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="zh-Hans" href={zhHref} />
+    <link rel="alternate" hreflang="en" href={enHref} />
+    <link rel="alternate" hreflang="x-default" href={zhHref} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={locale === 'zh' ? 'zh_CN' : 'en_US'} />
+    <meta property="og:image" content={abs('/photo.png')} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0c0c0d" media="(prefers-color-scheme: dark)" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="preconnect"
-      href="https://fonts.googleapis.com"
-    />
-    <link
-      rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
+    <!-- Applied before first paint so the theme never flashes. -->
+    <script is:inline>
+      (() => {
+        const stored = localStorage.getItem('theme');
+        const dark =
+          stored === 'dark' ||
+          (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+      })();
+    </script>
   </head>
   <body>
-    <header class="container-page pt-8 pb-2 flex items-center justify-between">
+    <header class="container-wide pt-4 pb-1 flex items-center justify-between">
       <a
         href={localePath(locale, '/')}
-        class="font-semibold text-ink no-underline hover:no-underline tracking-tight"
+        class="text-sm font-semibold text-ink no-underline hover:no-underline hover:text-accent transition-colors tracking-tight"
       >
         {tr.hero.name}
       </a>
-      <a
-        href={otherHref}
-        class="text-sm text-ink-soft no-underline hover:text-ink hover:no-underline"
-      >
-        {tr.ui.switch_lang}
-      </a>
+
+      <nav class="flex items-center gap-1 text-sm">
+        <a
+          href={otherHref}
+          class="px-2.5 py-1.5 rounded-md text-ink-soft no-underline hover:text-ink hover:bg-ink/[0.06] hover:no-underline transition-colors"
+        >
+          {tr.ui.switch_lang}
+        </a>
+
+        <button
+          id="theme-toggle"
+          type="button"
+          aria-label={tr.ui.toggle_theme}
+          title={tr.ui.toggle_theme}
+          class="p-1.5 rounded-md text-ink-soft hover:text-ink hover:bg-ink/[0.06] transition-colors"
+        >
+          <svg
+            class="w-[18px] h-[18px] block dark:hidden"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+          </svg>
+          <svg
+            class="w-[18px] h-[18px] hidden dark:block"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z" />
+          </svg>
+        </button>
+      </nav>
     </header>
+
     <main>
       <slot />
     </main>
-    <footer class="container-page py-12 text-xs text-ink-muted">
+
+    <footer class="container-wide py-3 text-[11px] text-ink-muted">
       © {new Date().getFullYear()} {tr.hero.name}
     </footer>
+
+    <script is:inline>
+      document.getElementById('theme-toggle')?.addEventListener('click', () => {
+        const dark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', dark ? 'dark' : 'light');
+      });
+    </script>
   </body>
 </html>

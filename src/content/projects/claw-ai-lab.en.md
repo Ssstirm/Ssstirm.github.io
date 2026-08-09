@@ -4,7 +4,7 @@ locale: en
 category: agent
 order: 2
 title: Claw-AI-Lab
-subtitle: Autonomous multi-agent platform for end-to-end research
+subtitle: Multi-agent platform for research
 period: 2025 – Present
 role: Co-developer
 stack: [Python, TypeScript, PyTorch, Multi-agent orchestration]

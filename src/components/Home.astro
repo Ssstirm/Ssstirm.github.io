@@ -16,172 +16,228 @@ const sorted = all.sort((a, b) => a.data.order - b.data.order);
 const byCategory = (cat: 'agent' | 'xr' | 'world') =>
   sorted.filter((p) => p.data.category === cat);
 
+// Ordered by project count, densest first — the ragged bottom edge then steps
+// down left-to-right instead of leaving a hole under the short columns.
 const categories = [
-  { key: 'agent' as const, ...tr.sections.agent },
-  { key: 'xr' as const, ...tr.sections.xr },
   { key: 'world' as const, ...tr.sections.world },
+  { key: 'xr' as const, ...tr.sections.xr },
+  { key: 'agent' as const, ...tr.sections.agent },
 ];
 
-const isLeadAuthor = (role?: string) => {
-  if (!role) return false;
-  return /first author|第一作者/i.test(role);
-};
+const isLeadAuthor = (role?: string) => !!role && /first author|第一作者/i.test(role);
+
+// Role only — the org is already listed in the Experience column below, and
+// repeating it here is what made the grid feel noisy.
+const credit = (p: { role?: string }) => p.role;
+
+const introParts = tr.hero.intro.split(/(\{(?:kul|ustc|thu)\})/g);
+
+// Columns 2+ get a rule on the left so the uneven column bottoms read as structure.
+const colRule = (i: number) => (i > 0 ? 'lg:border-l lg:border-line lg:pl-9' : '');
 ---
 
-<div class="max-w-[1180px] mx-auto px-6 md:px-10 py-8 md:py-10">
+<div class="mx-auto max-w-[1360px] px-6 lg:px-10 py-4">
 
-  <!-- Top: Photo + Name + Contact -->
-  <header class="flex items-center gap-6 mb-8">
-    <img
-      src={tr.hero.photo}
-      alt={tr.hero.name}
-      width="96"
-      height="120"
-      class="w-24 h-30 md:w-28 md:h-36 rounded-lg object-cover border border-ink/10 flex-shrink-0"
-    />
-    <div class="flex-1 min-w-0">
-      <h1 class="text-4xl md:text-[44px] font-bold tracking-tight leading-[1.05]">
-        {tr.hero.name}
-      </h1>
-      <p class="text-xs uppercase tracking-[0.2em] text-accent mt-2 font-semibold">
-        {tr.hero.role}
-      </p>
-      <ul class="flex flex-wrap gap-x-4 gap-y-1 text-[13px] text-ink-soft mt-3">
-        <li><a href="mailto:xinnian0311@gmail.com" class="hover:text-accent">xinnian0311@gmail.com</a></li>
-        <li><a href="https://github.com/Ssstirm" target="_blank" rel="noopener" class="hover:text-accent">github.com/Ssstirm</a></li>
-        <li><a href={`/cv-${locale}.pdf`} class="text-accent font-semibold">{tr.contact.cv}</a></li>
+  <!-- ===== Row 1: identity + bio ===== -->
+  <div class="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-6 lg:gap-12 items-start">
+
+    <div>
+      <div class="flex flex-row gap-4 items-start">
+        <img
+          src={tr.hero.photo}
+          alt={tr.hero.name}
+          width="112"
+          height="140"
+          class="w-[84px] h-[105px] rounded-xl object-cover border border-line flex-shrink-0"
+        />
+        <div class="min-w-0">
+          <h1 class="text-[34px] font-bold tracking-[-0.025em] leading-[1.05]">
+            {tr.hero.name}
+          </h1>
+          <p class="text-[12.5px] text-ink-soft mt-1.5">{tr.hero.role}</p>
+          <p class="flex items-start gap-1.5 text-[12.5px] text-ink-soft mt-2 leading-snug">
+            <span class="mt-[6px] w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" aria-hidden="true"></span>
+            <span>{tr.hero.now}</span>
+          </p>
+        </div>
+      </div>
+
+      <ul class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12.5px] mt-3.5">
+        <li>
+          <a
+            href="mailto:xinnian0311@gmail.com"
+            class="text-ink-soft no-underline hover:text-accent hover:no-underline transition-colors"
+          >xinnian0311@gmail.com</a>
+        </li>
+        <li aria-hidden="true" class="text-ink-muted/50">·</li>
+        <li>
+          <a
+            href="https://github.com/Ssstirm"
+            target="_blank"
+            rel="noopener"
+            class="text-ink-soft no-underline hover:text-accent hover:no-underline transition-colors"
+          >GitHub</a>
+        </li>
+        <li aria-hidden="true" class="text-ink-muted/50">·</li>
+        <li>
+          <a
+            href={`/cv-${locale}.pdf`}
+            class="inline-flex items-center gap-1 font-medium no-underline hover:underline"
+          >
+            {tr.contact.cv}
+            <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3v13M6 12l6 6 6-6M4 21h16" />
+            </svg>
+          </a>
+        </li>
       </ul>
     </div>
-  </header>
 
-  <!-- Bio paragraph (full width, prominent) -->
-  <section class="mb-8 text-[15.5px] leading-relaxed text-ink/85">
-    {tr.hero.intro.split(/(\{(?:kul|ustc|thu)\})/g).map((part) => {
-      const match = part.match(/^\{(kul|ustc|thu)\}$/);
-      if (match) {
-        return (
-          <img
-            src={`/logos/${match[1]}.svg`}
-            alt=""
-            width="20"
-            height="20"
-            class="inline-block h-[1em] w-[1em] align-[-0.15em] mx-[2px] rounded-[3px]"
-          />
-        );
-      }
-      return part;
-    })}
-    {' '}{tr.hero.research_intro}{' '}
-    {tr.hero.experiences.map((exp, i, arr) => (
-      <>
-        {i > 0 && (i === arr.length - 1
-          ? tr.hero.experience_final_separator
-          : tr.hero.experience_separator)}
-        {exp.label}<Icon name={exp.icon} />
-      </>
-    ))}
-    {tr.hero.experience_outro}
-    {' '}{tr.hero.personal}{' '}{tr.hero.mission}
-  </section>
+    <div class="text-[15px] leading-[1.6] text-ink/85">
+      <p>
+        {introParts.map((part) => {
+          const match = part.match(/^\{(kul|ustc|thu)\}$/);
+          if (match) {
+            return (
+              <img
+                src={`/logos/${match[1]}.svg`}
+                alt=""
+                width="20"
+                height="20"
+                class="inline-block h-[1em] w-[1em] align-[-0.15em] mx-[2px] rounded-[3px]"
+              />
+            );
+          }
+          return part;
+        })}
+      </p>
 
-  <!-- Projects: 3 columns by category -->
-  <section class="mb-10">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-      {categories.map((cat) => (
-        <div>
-          <h2 class="text-sm uppercase tracking-[0.18em] text-accent font-bold mb-4 pb-2 border-b border-accent/30">
-            {cat.title}
-          </h2>
-          <ul class="space-y-4">
-            {byCategory(cat.key).map((p) => (
-              <li>
-                <a
-                  href={localePath(locale, `/projects/${p.data.key}`)}
-                  class="block group no-underline hover:no-underline"
-                >
-                  <div class="flex items-baseline justify-between gap-2 mb-0.5">
-                    <p class="text-[15px] font-bold text-ink group-hover:text-accent transition-colors leading-snug">
-                      {p.data.title}
-                    </p>
-                    {p.data.period && (
-                      <span class="text-[10.5px] text-ink-muted font-mono whitespace-nowrap flex-shrink-0">
-                        {p.data.period}
-                      </span>
-                    )}
-                  </div>
-                  {p.data.subtitle && (
-                    <p class="text-[12.5px] text-ink-soft leading-snug mb-1">
-                      {p.data.subtitle}
-                    </p>
-                  )}
-                  {p.data.role && (
-                    <p class={`text-[11px] font-semibold ${isLeadAuthor(p.data.role) ? 'text-accent' : 'text-ink-muted'}`}>
-                      {p.data.role}
-                    </p>
-                  )}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+      <p class="mt-2.5">
+        {tr.hero.research_intro}{' '}
+        {tr.hero.experiences.map((exp, i, arr) => (
+          <>
+            {i > 0 && (i === arr.length - 1
+              ? tr.hero.experience_final_separator
+              : tr.hero.experience_separator)}
+            {exp.label}<Icon name={exp.icon} />
+          </>
+        ))}
+        {tr.hero.experience_outro}
+      </p>
+
+      <p class="mt-2.5 text-[12.5px] text-ink-muted">
+        {tr.hero.personal} {tr.hero.mission}
+      </p>
     </div>
-  </section>
+  </div>
 
-  <!-- Bottom strip: Experience | Education | Publications -->
-  <section class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 pt-6 border-t border-ink/10 text-[13px]">
+  <!-- ===== Row 2: three research threads ===== -->
+  <div class="mt-5 pt-5 border-t border-line grid grid-cols-1 md:grid-cols-3 gap-y-7 gap-x-9">
+    {categories.map((cat, i) => (
+      <section class={colRule(i)}>
+        <div class="flex items-baseline gap-2.5">
+          <span class="font-mono text-[11px] text-ink-muted tabular-nums">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+          <h2 class="eyebrow text-accent">{cat.title}</h2>
+        </div>
+        <p class="text-[12px] text-ink-muted mt-1.5 mb-3 leading-snug">{cat.kicker}</p>
 
-    <!-- Experience -->
-    <div>
-      <h3 class="text-xs uppercase tracking-[0.18em] text-accent font-bold mb-3">
-        {tr.sections.experience}
-      </h3>
-      <ul class="space-y-3 leading-snug">
+        <ul class="space-y-px">
+          {byCategory(cat.key).map((p) => (
+            <li>
+              <a
+                href={localePath(locale, `/projects/${p.data.key}`)}
+                class="group block no-underline hover:no-underline rounded-md -mx-2 px-2 py-1.5 hover:bg-ink/[0.04] transition-colors"
+              >
+                <div class="flex items-baseline justify-between gap-3">
+                  <h3 class="text-[14px] font-semibold text-ink group-hover:text-accent transition-colors leading-snug min-w-0">
+                    {p.data.title}
+                  </h3>
+                  {p.data.period && (
+                    <span class="font-mono text-[11px] text-ink-muted whitespace-nowrap flex-shrink-0 tabular-nums">
+                      {p.data.period}
+                    </span>
+                  )}
+                </div>
+                <p class="text-[12.5px] leading-snug mt-1 line-clamp-1">
+                  {credit(p.data) && (
+                    <span class={isLeadAuthor(p.data.role) ? 'text-accent' : 'text-ink-muted'}>
+                      {credit(p.data)}
+                    </span>
+                  )}
+                  {credit(p.data) && p.data.subtitle && <span class="text-ink-muted/50">{' · '}</span>}
+                  {p.data.subtitle && <span class="text-ink-soft">{p.data.subtitle}</span>}
+                </p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+
+  <!-- ===== Row 3: experience / education / publications ===== -->
+  <div class="mt-5 pt-5 border-t border-line grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-7 gap-x-9">
+
+    <section>
+      <h2 class="eyebrow text-accent mb-3">{tr.sections.experience}</h2>
+      <ul class="space-y-2.5">
         {tr.experience.map((e) => (
           <li>
-            <div class="flex items-baseline justify-between gap-2 mb-0.5">
-              <p class="font-semibold text-ink text-[13.5px]">{e.role}</p>
-              <span class="text-[10.5px] text-ink-muted font-mono whitespace-nowrap flex-shrink-0">{e.period}</span>
+            <div class="flex items-baseline justify-between gap-3">
+              <p class="text-[14px] font-semibold text-ink leading-snug">{e.org}</p>
+              <span class="font-mono text-[11px] text-ink-muted whitespace-nowrap flex-shrink-0 tabular-nums">
+                {e.period}
+              </span>
             </div>
-            <p class="text-ink-soft text-[12.5px]">{e.org}</p>
+            <p class="text-[12.5px] text-ink-soft leading-snug mt-1">{e.role}</p>
           </li>
         ))}
       </ul>
-    </div>
+    </section>
 
-    <!-- Education -->
-    <div>
-      <h3 class="text-xs uppercase tracking-[0.18em] text-accent font-bold mb-3">
-        {tr.sections.education}
-      </h3>
-      <ul class="space-y-3 leading-snug">
+    <section class="lg:border-l lg:border-line lg:pl-9">
+      <h2 class="eyebrow text-accent mb-3">{tr.sections.education}</h2>
+      <ul class="space-y-2.5">
         {tr.education.map((e) => (
           <li>
-            <div class="flex items-baseline justify-between gap-2 mb-0.5">
-              <p class="font-semibold text-ink text-[13.5px]">{e.degree}</p>
-              <span class="text-[10.5px] text-ink-muted font-mono whitespace-nowrap flex-shrink-0">{e.period}</span>
+            <div class="flex items-baseline justify-between gap-3">
+              <p class="text-[14px] font-semibold text-ink leading-snug">{e.school}</p>
+              <span class="font-mono text-[11px] text-ink-muted whitespace-nowrap flex-shrink-0 tabular-nums">
+                {e.period}
+              </span>
             </div>
-            <p class="text-ink-soft text-[12.5px]">{e.school}</p>
+            <p class="text-[12.5px] text-ink-soft leading-snug mt-1">{e.degree}</p>
           </li>
         ))}
       </ul>
-    </div>
+    </section>
 
-    <!-- Publications -->
-    <div>
-      <h3 class="text-xs uppercase tracking-[0.18em] text-accent font-bold mb-3">
-        {tr.sections.publications}
-      </h3>
-      <ul class="space-y-3 leading-snug">
+    <!-- Publication titles run long, so this column gets double width -->
+    <section class="lg:col-span-2 lg:border-l lg:border-line lg:pl-9">
+      <h2 class="eyebrow text-accent mb-3">{tr.sections.publications}</h2>
+      <ul class="space-y-2.5">
         {tr.publications.map((p) => (
-          <li>
-            <p class="font-semibold text-ink text-[13.5px]">{p.title}</p>
-            <p class="text-ink-soft text-[12.5px] mt-0.5">{p.authors}</p>
-            <p class="text-ink-muted font-mono text-[10.5px] mt-0.5">{p.venue} · {p.year}</p>
+          <li class="grid grid-cols-[auto_1fr] gap-x-3">
+            <span class="font-mono text-[11px] text-ink-muted mt-[3px] tabular-nums">
+              {p.year}
+            </span>
+            <div class="min-w-0">
+              <p class="text-[14px] font-medium text-ink leading-snug">
+                {p.link
+                  ? <a href={p.link} target="_blank" rel="noopener" class="no-underline hover:underline">{p.title}</a>
+                  : p.title}
+              </p>
+              <p class="text-[12px] text-ink-muted leading-snug mt-1">
+                {p.venue}
+                {p.role && <span class={isLeadAuthor(p.role) ? 'text-accent' : ''}> · {p.role}</span>}
+              </p>
+            </div>
           </li>
         ))}
       </ul>
-    </div>
-  </section>
+    </section>
+  </div>
 
 </div>

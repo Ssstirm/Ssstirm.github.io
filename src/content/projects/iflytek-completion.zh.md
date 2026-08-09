@@ -2,9 +2,9 @@
 key: iflytek-completion
 locale: zh
 category: world
-order: 1
+order: 4
 title: 讯飞输入法长句补全
-subtitle: 从 400GB 输入法语料清洗、从零预训练 GPT 模型，并在讯飞输入法落地
+subtitle: GPT 从零预训练，落地讯飞输入法
 period: 2021 – 2022
 role: NLP 研究员
 org: 科大讯飞

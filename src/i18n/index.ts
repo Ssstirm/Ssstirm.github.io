@@ -10,10 +10,11 @@ export function t(locale: Locale) {
 }
 
 export function altLocale(locale: Locale): Locale {
-  return locale === 'en' ? 'zh' : 'en';
+  return locale === 'zh' ? 'en' : 'zh';
 }
 
+// Chinese is the default locale and lives at the root; English is prefixed.
 export function localePath(locale: Locale, path = '/'): string {
   const clean = path.startsWith('/') ? path : `/${path}`;
-  return locale === 'en' ? clean : `/zh${clean === '/' ? '' : clean}`;
+  return locale === 'zh' ? clean : `/en${clean === '/' ? '' : clean}`;
 }

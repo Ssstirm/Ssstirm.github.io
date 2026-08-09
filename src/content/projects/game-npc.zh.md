@@ -4,9 +4,9 @@ locale: zh
 category: xr
 order: 1
 title: AI Game NPC
-subtitle: LLM 驱动的 NPC 到底应该帮玩家多少？
+subtitle: AI 同伴该帮多少？
 period: 2024 – 2025
-role: 第一作者
+role: 第一作者 · SUI 2026
 stack: [Apple Vision Pro, Unity 6]
 links: []
 summary: 一款基于 Apple Vision Pro 的 VR 解谜游戏，配 LLM 驱动的 AI 同伴，用来研究玩家到底希望 NPC 提供多少辅助。24 人内被试用户研究。

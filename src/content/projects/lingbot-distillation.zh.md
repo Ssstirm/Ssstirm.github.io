@@ -2,14 +2,14 @@
 key: lingbot-distillation
 locale: zh
 category: world
-order: 3
+order: 2
 title: LingBot 蒸馏
-subtitle: 在华为昇腾服务器上复现 LingBot 视频模型的蒸馏
+subtitle: 14B 视频扩散蒸馏到 4 步
 period: 2026.03 – 2026.05
 role: 研究实习生
 org: 魔芯科技
 stack: [PyTorch, 昇腾 920C / CANN, 视频扩散, 知识蒸馏]
-links: []
+links: [{ label: "arXiv", href: "https://arxiv.org/abs/2607.06216" }]
 summary: 在华为昇腾服务器上复现 LingBot 的蒸馏流水线，对一个具备相机控制、可生成约 1000 帧长视频的教师模型完成蒸馏。
 ---
 

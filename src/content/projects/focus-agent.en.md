@@ -10,7 +10,11 @@ role: First author
 stack: [LLMs, Multi-agent simulation, Unity, User study]
 links:
   - label: Paper (IVA 2024)
-    href: https://dl.acm.org/doi/10.1145/3652988.3673929
+    href: https://dl.acm.org/doi/10.1145/3652988.3673918
+  - label: arXiv
+    href: https://arxiv.org/abs/2409.01907
+  - label: Code
+    href: https://github.com/AriaXR/FocusAgent
 summary: A virtual focus-group simulator where each participant is an LLM-driven agent with a distinct persona. Published at IVA 2024 (first author).
 ---
 

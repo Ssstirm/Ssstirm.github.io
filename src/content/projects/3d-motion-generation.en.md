@@ -2,9 +2,9 @@
 key: 3d-motion-generation
 locale: en
 category: world
-order: 2
+order: 3
 title: 3D Character Animation Generation
-subtitle: Tracking the autoregressive and diffusion branches of text-to-motion through to the foundation-scale era
+subtitle: Text-to-motion, both model families
 period: 2023 – 2025
 role: Researcher
 stack: [PyTorch, VQGAN, T2M-GPT, Momask, MotionGPT, MDM, HumanML3D]

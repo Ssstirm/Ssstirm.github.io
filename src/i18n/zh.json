@@ -14,19 +14,44 @@
   },
   "hero": {
     "name": "张泰宇",
-    "role": "研究员",
+    "role": "博士在读 · 鲁汶大学",
+    "now": "目前在字节跳动 PICO 多模态交互组实习。",
     "photo": "/photo.png",
     "intro": "我是 {kul} KU Leuven 计算机科学系的在读博士，研究方向是三维环境中的智能虚拟代理。来鲁汶之前，本科毕业于 {ustc} 中国科学技术大学信息学院，硕士毕业于 {thu} 清华大学电子工程系。",
     "research_intro": "研究兴趣集中在 AI Agent、XR 交互和生成式模型三个方向。过往工作涉及",
     "experiences": [
-      { "icon": "flask", "label": "AI Agent for Science" },
-      { "icon": "search", "label": "auto research" },
-      { "icon": "gamepad", "label": "游戏 NPC" },
-      { "icon": "vr", "label": "coembodiment AI" },
-      { "icon": "languages", "label": "多语种语义理解" },
-      { "icon": "brain", "label": "大语言模型" },
-      { "icon": "person", "label": "3D 动画" },
-      { "icon": "video", "label": "生成式世界模型" }
+      {
+        "icon": "flask",
+        "label": "AI Agent for Science"
+      },
+      {
+        "icon": "search",
+        "label": "auto research"
+      },
+      {
+        "icon": "gamepad",
+        "label": "游戏 NPC"
+      },
+      {
+        "icon": "vr",
+        "label": "coembodiment AI"
+      },
+      {
+        "icon": "languages",
+        "label": "多语种语义理解"
+      },
+      {
+        "icon": "brain",
+        "label": "大语言模型"
+      },
+      {
+        "icon": "person",
+        "label": "3D 动画"
+      },
+      {
+        "icon": "video",
+        "label": "生成式世界模型"
+      }
     ],
     "experience_separator": "、",
     "experience_final_separator": "、",
@@ -45,7 +70,7 @@
     },
     "world": {
       "title": "生成式模型",
-      "kicker": "生成式模型的蒸馏与后训练。"
+      "kicker": "生成式模型的蒸馏、后训练与数据引擎。"
     },
     "experience": "经历",
     "education": "教育",
@@ -53,6 +78,12 @@
     "contact": "联系"
   },
   "experience": [
+    {
+      "role": "研究实习生，多模态交互方向",
+      "org": "字节跳动 PICO",
+      "period": "2026.07 – 至今",
+      "blurb": "搭建手势追踪数据管线：基于 diffusion 的手势视频数据生成，以及 Qwen 多模态 VLM 对手势视频数据的标注与审核。"
+    },
     {
       "role": "研究实习生，世界模型蒸馏方向",
       "org": "魔芯科技",
@@ -88,11 +119,28 @@
   ],
   "publications": [
     {
+      "title": "“What Can I Do for You”: How Should AI Companions Provide Assistance to Players in Virtual Reality Games",
+      "authors": "张泰宇 等",
+      "venue": "ACM 空间用户交互研讨会（SUI）",
+      "year": "2026",
+      "role": "第一作者",
+      "link": ""
+    },
+    {
+      "title": "MoWorld: A Flash World Model",
+      "authors": "Team Moxin（含张泰宇）",
+      "venue": "技术报告，arXiv:2607.06216",
+      "year": "2026",
+      "role": "参与作者",
+      "link": "https://arxiv.org/abs/2607.06216"
+    },
+    {
       "title": "Focus Agent：基于大语言模型的虚拟焦点小组",
       "authors": "张泰宇 等",
       "venue": "第 24 届 ACM 智能虚拟代理国际会议（IVA）",
       "year": "2024",
-      "role": "第一作者"
+      "role": "第一作者",
+      "link": "https://arxiv.org/abs/2409.01907"
     }
   ],
   "contact": {
@@ -105,6 +153,12 @@
   "ui": {
     "view_project": "查看详情",
     "back_home": "返回首页",
-    "switch_lang": "EN"
+    "switch_lang": "EN",
+    "toggle_theme": "切换深色模式",
+    "meta_period": "时间",
+    "meta_role": "角色",
+    "meta_org": "单位",
+    "meta_stack": "技术",
+    "meta_links": "链接"
   }
 }

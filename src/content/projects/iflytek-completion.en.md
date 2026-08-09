@@ -2,9 +2,9 @@
 key: iflytek-completion
 locale: en
 category: world
-order: 1
+order: 4
 title: Long-Sentence Completion for iFlyTek IME
-subtitle: Cleaned a 400 GB IME corpus, pretrained a GPT model from scratch, shipped in iFlyTek input method
+subtitle: GPT pretrained from scratch, shipped
 period: 2021 – 2022
 role: NLP Researcher
 org: iFlyTek
